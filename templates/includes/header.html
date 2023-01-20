@@ -1,0 +1,26 @@
+    {% load static %}
+    <header>
+        <nav class="navbar navbar-light" style="background-color: lightskyblue">
+          <div class="container">
+            <a class="navbar-brand" href="{% url 'main_page' %}">
+              <img src="{% static 'img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+              <span style="color:red">Forex</span>Reviews
+            </a>
+                <ul class="nav nav-pills">
+                    <li class="nav-item"> 
+                        <a class="nav-link {% if view_name  == 'add_company' %}active{% endif %}" href="{% url 'add_company' %}">Add Company</a>
+                    </li>
+                    <li class="nav-item"> 
+                        <a class="nav-link" href="{% url 'exchange_rate' %}">exchange_rate</a>
+                    </li>
+                    <li class="nav-item"> 
+                        <a class="nav-link" href="{% url 'trade' %}">trade</a>
+                    </li>
+                    <li class="nav-item"> 
+                      <a href="{% url 'logout' %}">Logout</a>
+
+                    </li>
+                </ul>
+          </div>
+        </nav>      
+      </header>

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Exchange Rate</h1>
+  <form method="post">
+    {% csrf_token %}
+    <label for="from_currency">From Currency:</label>
+    <select name="from_currency">
+      {% for currency in currencies %}
+        <option value="{{ currency.code }}">{{ currency.name }} ({{ currency.code }})</option>
+      {% endfor %}
+    </select>
+    <br>
+    <label for="to_currency">To Currency:</label>
+    <select name="to_currency">
+      {% for currency in currencies %}
+        <option value="{{ currency.code }}">{{ currency.name }} ({{ currency.code }})</option>
+      {% endfor %}
+    </select>
+    <br><br>
+    <input type="submit" value="Get Exchange Rate">
+  </form>
+  {% if exchange_rate %}
+    <p>Exchange rate: {{ exchange_rate }}</p>
+  {% endif %}
+{% endblock %}

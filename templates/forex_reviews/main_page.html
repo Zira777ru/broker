@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Forex Reviews</h1>
+
+  <h2>Companies</h2>
+  <ol>
+    {% for company in companies %}
+      <li>
+        <h3>{{ forloop.counter }}. {{ company.name }}</h3>
+        <p>
+          Rating: <i class="fa-solid fa-star"></i>{{ company.average_rating }}
+          {% comment %} {% for i in company.average_rating|floatformat %}<i class="fa-solid fa-star"></i>{% endfor %}  {% endcomment %}
+          <br>
+          Number of reviews: {{ company.review_set.count }}
+          <br>
+          <a href="{% url 'company_page' company.slug %}">See reviews</a>
+        </p>
+      </li>
+      {% if not forloop.last %} <hr> {% endif %}
+    {% endfor %}
+  </ol>
+  <a href="{% url 'add_company' %}" class="btn btn-success">Add Company</a>
+{% endblock %}

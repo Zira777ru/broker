@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load tag_library %}
+{% block content %}
+  <h1>Trade</h1>
+  <form method="post">
+    {% csrf_token %}
+    <label for="exchange_rate">Exchange Rate:</label>
+    <select name="exchange_rate">
+      {% for exchange_rate in exchange_rates %}
+        <option value="{{ exchange_rate.id }}">{{ exchange_rate.from_currency.code }} to {{ exchange_rate.to_currency.code }}: {{ exchange_rate.rate }}</option>
+      {% endfor %}
+    </select>
+    <br>
+    <label for="amount">Amount:</label>
+    <input type="number" name="amount" step="0.01" min="0">
+    <br><br>
+    <input type="submit" value="Make Trade">
+  </form>
+  {% if trade %}
+    <p>You traded {{ trade.amount }} {{ trade.exchange_rate.from_currency.code }} for {{ trade.amount|mul:trade.exchange_rate.rate }} {{ trade.exchange_rate.to_currency.code }}</p>
+  {% endif %}
+{% endblock %}

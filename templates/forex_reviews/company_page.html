@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load tag_library %}
+{% block content %}
+<h1>{{ company.name }}</h1>
+<p>{{ company.description }}</p>
+<h2>Leave a Review</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="text">Text</label>
+        <textarea class="form-control" name="text" id="text"></textarea>
+    </div>
+    <div class="form-group">
+        <div class="rating-container">
+            <label for="rating">Rating: </label>
+            <a href="#" class="fa fa-star rating-star" data-rating="1"></a>
+            <a href="#" class="fa fa-star rating-star" data-rating="2"></a>
+            <a href="#" class="fa fa-star rating-star" data-rating="3"></a>
+            <a href="#" class="fa fa-star rating-star" data-rating="4"></a>
+            <a href="#" class="fa fa-star rating-star" data-rating="5"></a>
+            <input type="hidden" name="rating" id="rating-input">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input class="form-control" type="text" name="username" id="username">
+    </div>
+    <input type="submit" value="Add Review" class="btn btn-primary">
+</form>
+
+<h2>Reviews</h2>
+{% for review in reviews %}
+    <div class="review-container">
+        <p>{{ review.text }}</p>
+        <p>Username: <b>{{ review.username }}</b> | date: {{ review.date }} | Rating: <i class="fa fa-star rating-star selected"></i>{{ review.rating }}</p>
+    </div>
+    {% if not forloop.last %} <hr> {% endif %}
+{% endfor %}
+
+
+
+{% endblock %}
