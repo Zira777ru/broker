@@ -6,8 +6,10 @@ from django.contrib.auth.models import User
 
 class Currency(models.Model):
     name = models.CharField(max_length=255)
-    code = models.CharField(max_length=3)
     symbol = models.CharField(max_length=10)
+    
+    def __str__(self):
+        return f'{self.symbol}'
 
 class ExchangeRate(models.Model):
     from_currency = models.ForeignKey(Currency, on_delete=models.CASCADE, related_name='exchange_rate_from_currency')
@@ -17,7 +19,8 @@ class ExchangeRate(models.Model):
 class TradingPair(models.Model):
     from_currency = models.ForeignKey(Currency, on_delete=models.CASCADE, related_name='trading_pair_from_currency')
     to_currency = models.ForeignKey(Currency, on_delete=models.CASCADE, related_name='trading_pair_to_currency')
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    def __str__(self):
+        return f'{self.from_currency}/{self.to_currency}'
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='userprofile')

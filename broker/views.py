@@ -1,3 +1,4 @@
+import os
 import requests
 from datetime import datetime
 from decimal import Decimal
@@ -15,7 +16,7 @@ def exchange_rate(request):
         to_currency = request.POST['to_currency']
 
         # Make an API call to ALPHA Vantage to get the exchange rate
-        api_key = 'WYDLCMWS61R2VF8M'
+        api_key = os.environ.get('ALPHA_VANTAGE_API_KEY')
         url = f'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency={from_currency}&to_currency={to_currency}&apikey={api_key}'
         response = requests.get(url)
         data = response.json()
